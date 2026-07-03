@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fp-validated-docs
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/FP-Validated/fp-validated-docs.git
+    targetRevision: main
+    path: charts/docs-site
+    helm:
+      releaseName: fp-validated-docs
+      valuesObject:
+        ingress:
+          enabled: true
+          className: nginx
+          hosts:
+            - host: docs.4pillars.info
+              paths:
+                - path: /
+                  pathType: Prefix
+        externalSecrets:
+          enabled: true
+          secretStoreRef:
+            kind: ClusterSecretStore
+            name: CHANGE_ME_SECRET_STORE
+          targetName: fp-validated-docs-git
+          data:
+            - secretKey: username
+              remoteKey: github/fp-validated-docs
+              property: username
+            - secretKey: token
+              remoteKey: github/fp-validated-docs
+              property: token
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: docs
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,118 @@
+replicaCount: 1
+
+nameOverride: ""
+fullnameOverride: ""
+
+imagePullSecrets: []
+
+podAnnotations: {}
+podLabels: {}
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 101
+  runAsGroup: 101
+  fsGroup: 101
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  capabilities:
+    drop:
+      - ALL
+
+repo:
+  url: https://github.com/FP-Validated/fp-validated-docs.git
+  branch: main
+  username: x-access-token
+  syncIntervalSeconds: 120
+  runtimeSecretName: fp-validated-docs-git
+  runtimeSecretKeys:
+    username: username
+    token: token
+
+externalSecrets:
+  enabled: false
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: ""
+  targetName: ""
+  data:
+    - secretKey: username
+      remoteKey: github/fp-validated-docs
+      property: username
+    - secretKey: token
+      remoteKey: github/fp-validated-docs
+      property: token
+
+site:
+  dataDir: /var/www/site
+  repoDir: /workspace/repo
+  workDir: /workspace
+  npmCacheDir: /workspace/.npm
+  revisionFile: /var/www/site/.built-revision
+
+nginx:
+  image:
+    repository: nginx
+    tag: 1.27-alpine
+    pullPolicy: IfNotPresent
+  port: 8080
+
+builder:
+  image:
+    repository: node
+    tag: 20-bookworm-slim
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: "250m"
+      memory: 512Mi
+    limits:
+      cpu: "2"
+      memory: 2Gi
+
+sync:
+  image:
+    repository: alpine/git
+    tag: 2.47.2
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: "50m"
+      memory: 128Mi
+    limits:
+      cpu: "500m"
+      memory: 512Mi
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: http
+  annotations: {}
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: docs.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  requests:
+    cpu: "50m"
+    memory: 64Mi
+  limits:
+    cpu: "500m"
+    memory: 256Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+terminationGracePeriodSeconds: 30

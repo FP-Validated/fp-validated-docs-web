@@ -1,0 +1,127 @@
+.admin-intel {
+  min-height: 100vh;
+  padding: 56px clamp(18px, 4vw, 64px);
+  background:
+    radial-gradient(circle at 12% 0%, rgb(62 115 231 / 16%), transparent 32rem),
+    #090a0f;
+}
+
+.admin-intel__hero {
+  max-width: 980px;
+}
+
+.admin-intel__hero p {
+  color: #8fa8ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.admin-intel__hero h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(38px, 7vw, 78px);
+  letter-spacing: -0.07em;
+}
+
+.admin-intel__hero span {
+  display: block;
+  max-width: 760px;
+  color: #b7bdca;
+  font-size: 17px;
+}
+
+.admin-intel__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.admin-intel__stats article,
+.admin-intel__panel,
+.admin-intel__empty {
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 22px;
+  background: rgb(255 255 255 / 5%);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 24%);
+  padding: 20px;
+}
+
+.admin-intel__stats strong {
+  display: block;
+  color: #fff;
+  font-size: 34px;
+}
+
+.admin-intel__stats span,
+.admin-intel__empty {
+  color: #aeb4c4;
+}
+
+.admin-intel__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.admin-intel__toolbar button {
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 5%);
+  color: #d8dcec;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.admin-intel__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 18px;
+}
+
+.admin-intel__panel h2 {
+  margin-top: 0;
+  color: #fff;
+}
+
+.admin-intel__note {
+  border-top: 1px solid rgb(255 255 255 / 10%);
+  padding: 16px 0;
+}
+
+.admin-intel__note strong {
+  display: block;
+  color: #fff;
+}
+
+.admin-intel__note span,
+.admin-intel__note p,
+.admin-intel__panel li,
+.admin-intel__generated {
+  color: #aeb4c4;
+}
+
+.admin-intel__note footer,
+.admin-intel__topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.admin-intel__note footer span,
+.admin-intel__topics span {
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 999px;
+  color: #b8c0d6;
+  font-size: 12px;
+  padding: 5px 9px;
+}
+
+@media (max-width: 920px) {
+  .admin-intel__grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,33 @@
+services:
+  docs:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "${DOCS_PORT:-3000}:8080"
+    volumes:
+      - site-data:/var/www/site:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  sync:
+    build:
+      context: ../..
+      dockerfile: deploy/docs-site/Dockerfile.sync
+    restart: unless-stopped
+    environment:
+      REPO_URL: ${REPO_URL:-https://github.com/FP-Validated/fp-validated-docs.git}
+      REPO_BRANCH: ${REPO_BRANCH:-main}
+      GIT_USERNAME: ${GIT_USERNAME:-x-access-token}
+      GIT_TOKEN: ${GIT_TOKEN:?set GIT_TOKEN in the server environment}
+      SYNC_INTERVAL_SECONDS: ${SYNC_INTERVAL_SECONDS:-300}
+      WORK_DIR: /workspace
+      REPO_DIR: /workspace/repo
+      SITE_DIR: /var/www/site
+      NPM_CACHE_DIR: /workspace/.npm
+      REVISION_FILE: /var/www/site/.built-revision
+    volumes:
+      - repo-cache:/workspace
+      - site-data:/var/www/site
+
+volumes:
+  repo-cache:
+  site-data:

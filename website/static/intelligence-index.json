@@ -1,0 +1,433 @@
+{
+  "version": 1,
+  "generatedAt": "2026-06-23T23:56:02.703Z",
+  "product": {
+    "name": "FP Validated Intelligence",
+    "description": "Reviewed operator intelligence compiled from internal knowledge, chain metadata, and curated source snapshots."
+  },
+  "chains": [
+    {
+      "id": "aptos",
+      "displayName": "aptos",
+      "category": "movevm",
+      "status": "draft",
+      "lastVerified": null,
+      "runtimes": [
+        "docker",
+        "kubernetes",
+        "helm",
+        "argocd"
+      ],
+      "developerInterfaces": [
+        {
+          "id": "fullnode-rest",
+          "status": "standard",
+          "transport": "http",
+          "port": 8080
+        },
+        {
+          "id": "indexer-graphql",
+          "status": "standard",
+          "transport": "http"
+        },
+        {
+          "id": "transaction-stream-grpc",
+          "status": "standard",
+          "transport": "grpc",
+          "port": 50051
+        }
+      ],
+      "ports": [
+        {
+          "name": "api",
+          "port": 8080,
+          "public": false
+        },
+        {
+          "name": "p2p",
+          "port": 6180,
+          "public": true
+        },
+        {
+          "name": "metrics",
+          "port": 9101,
+          "public": false
+        },
+        {
+          "name": "transaction-stream",
+          "port": 50051,
+          "public": false
+        }
+      ],
+      "sampleLanguages": [],
+      "knowledgeCount": 0,
+      "topics": []
+    },
+    {
+      "id": "ethereum",
+      "displayName": "ethereum",
+      "category": "evm",
+      "status": "draft",
+      "lastVerified": null,
+      "runtimes": [
+        "docker",
+        "kubernetes",
+        "helm",
+        "argocd"
+      ],
+      "developerInterfaces": [
+        {
+          "id": "json-rpc",
+          "status": "standard",
+          "transport": "http",
+          "port": 8545,
+          "public": true
+        },
+        {
+          "id": "json-rpc-ws",
+          "status": "standard",
+          "transport": "ws",
+          "port": 8546,
+          "public": true
+        },
+        {
+          "id": "beacon-api",
+          "status": "standard",
+          "transport": "http",
+          "port": 5052,
+          "public": false
+        },
+        {
+          "id": "engine-api",
+          "status": "internal",
+          "port": 8551,
+          "public": false
+        }
+      ],
+      "ports": [
+        {
+          "name": "p2p",
+          "port": 30303,
+          "public": true
+        },
+        {
+          "name": "http-rpc",
+          "port": 8545,
+          "public": true
+        },
+        {
+          "name": "ws-rpc",
+          "port": 8546,
+          "public": true
+        },
+        {
+          "name": "beacon",
+          "port": 5052,
+          "public": false
+        },
+        {
+          "name": "engine",
+          "port": 8551,
+          "public": false
+        },
+        {
+          "name": "metrics",
+          "port": 6060,
+          "public": false
+        }
+      ],
+      "sampleLanguages": [
+        "curl",
+        "typescript",
+        "python"
+      ],
+      "knowledgeCount": 2,
+      "topics": [
+        "dvt",
+        "kubernetes",
+        "restore",
+        "snapshot",
+        "ssv",
+        "validator"
+      ]
+    },
+    {
+      "id": "solana",
+      "displayName": "solana",
+      "category": "svm",
+      "status": "draft",
+      "lastVerified": null,
+      "runtimes": [
+        "docker",
+        "kubernetes",
+        "helm",
+        "argocd"
+      ],
+      "developerInterfaces": [
+        {
+          "id": "json-rpc-http",
+          "status": "standard",
+          "transport": "http",
+          "port": 8899
+        },
+        {
+          "id": "websocket-pubsub",
+          "status": "standard",
+          "transport": "ws",
+          "port": 8900
+        }
+      ],
+      "ports": [
+        {
+          "name": "gossip",
+          "port": 8001,
+          "protocol": "udp",
+          "public": true
+        },
+        {
+          "name": "rpc",
+          "port": 8899,
+          "protocol": "tcp",
+          "public": false
+        },
+        {
+          "name": "rpc-ws",
+          "port": 8900,
+          "protocol": "tcp",
+          "public": false
+        },
+        {
+          "name": "metrics",
+          "port": 9100,
+          "protocol": "tcp",
+          "public": false
+        }
+      ],
+      "sampleLanguages": [],
+      "knowledgeCount": 0,
+      "topics": []
+    },
+    {
+      "id": "sui",
+      "displayName": "sui",
+      "category": "movevm",
+      "status": "draft",
+      "lastVerified": "2026-05-28",
+      "runtimes": [
+        "docker",
+        "kubernetes",
+        "helm",
+        "argocd"
+      ],
+      "developerInterfaces": [
+        {
+          "name": "gRPC",
+          "status": "recommended",
+          "transport": "grpc",
+          "port": 9000
+        },
+        {
+          "name": "GraphQL RPC",
+          "status": "recommended",
+          "transport": "http"
+        },
+        {
+          "name": "JSON-RPC",
+          "status": "deprecated",
+          "transport": "http",
+          "migrationDeadline": "2026-07",
+          "replacement": [
+            "gRPC",
+            "GraphQL RPC"
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "name": "p2p",
+          "port": 8080,
+          "protocol": "tcp",
+          "public": true
+        },
+        {
+          "name": "grpc",
+          "port": 9000,
+          "protocol": "tcp",
+          "public": false
+        },
+        {
+          "name": "metrics",
+          "port": 9184,
+          "protocol": "tcp",
+          "public": false
+        }
+      ],
+      "sampleLanguages": [],
+      "knowledgeCount": 1,
+      "topics": [
+        "graphql",
+        "migration",
+        "rpc"
+      ]
+    }
+  ],
+  "notes": [
+    {
+      "id": "ethereum/snapshot.operator-note",
+      "path": "knowledge/ethereum/snapshot.operator-note.md",
+      "title": "Ethereum Snapshot Restore Operator Notes",
+      "chain": "ethereum",
+      "topics": [
+        "snapshot",
+        "restore",
+        "kubernetes"
+      ],
+      "kind": "operator-note",
+      "review_status": "approved",
+      "last_reviewed": "2026-06-18",
+      "confidence": "high",
+      "summary": "Snapshot restore is a recovery accelerator, not a universal fix. Validate execution/consensus compatibility, JWT continuity, and snapshot freshness before replacing node state.",
+      "sources": [
+        {
+          "type": "internal",
+          "label": "FP Validated Ethereum node operations experience"
+        },
+        {
+          "type": "official",
+          "label": "Ethereum client documentation",
+          "url": "https://ethereum.org/developers/docs/nodes-and-clients/"
+        }
+      ],
+      "body": "# Ethereum Snapshot Restore Operator Notes\n\n## Operator judgment\n\nUse snapshots when execution sync time is the bottleneck, but avoid blind restore on validator-critical paths. A stale or incompatible snapshot can create a longer recovery path than a controlled resync.\n\n## Pre-restore checks\n\n- Confirm execution client and consensus client compatibility.\n- Preserve JWT secret continuity between execution and consensus clients.\n- Check disk I/O saturation before assuming sync is slow because of peers.\n- Verify snapshot capture time, network, chain ID, and client family.\n- Confirm the consensus client is not masking an execution-layer issue.\n\n## Kubernetes operating notes\n\n- Scale down the affected workload before replacing persistent volume state.\n- Record the current PVC, image tags, and client versions before mutation.\n- Prefer restoring into a fresh PVC when the failure mode is unclear.\n- Bring the execution client up first, then validate consensus connectivity.\n\n## Known failure patterns\n\n- Execution snapshot is fresh but consensus DB is stale.\n- JWT secret was rotated during restore and engine API authentication fails.\n- Snapshot provider changed pruning mode or client family without notice.\n- Node appears healthy at process level but lags finality because payload exchange is broken.",
+      "excerpt": "Operator judgment Use snapshots when execution sync time is the bottleneck, but avoid blind restore on validatorcritical paths. A stale or incompatible snapshot can create a longer recovery path than a controlled resync. Prerestore checks Confirm execution client and consensus cl"
+    },
+    {
+      "id": "ethereum/ssv.operator-note",
+      "path": "knowledge/ethereum/ssv.operator-note.md",
+      "title": "Ethereum SSV Operator Notes",
+      "chain": "ethereum",
+      "topics": [
+        "ssv",
+        "dvt",
+        "validator",
+        "kubernetes"
+      ],
+      "kind": "operator-note",
+      "review_status": "approved",
+      "last_reviewed": "2026-06-18",
+      "confidence": "medium",
+      "summary": "SSV operations should be treated as validator key-share operations first and Kubernetes operations second. Monitor operator liveness, network health, validator duties, and key-share handling together.",
+      "sources": [
+        {
+          "type": "internal",
+          "label": "FP Validated validator operations experience"
+        },
+        {
+          "type": "official",
+          "label": "SSV Network documentation",
+          "url": "https://docs.ssv.network/"
+        }
+      ],
+      "body": "# Ethereum SSV Operator Notes\n\n## Operator judgment\n\nSSV is not just another Ethereum sidecar. It changes validator operations by introducing DVT key-share handling, operator coordination, and network-level liveness dependencies.\n\n## What matters operationally\n\n- Operator identity and key-share handling must be controlled and auditable.\n- Pod restarts are less important than missed duty patterns and network connectivity.\n- Alerting should connect SSV operator health with beacon node health.\n- Version upgrades should be reviewed against SSV network release notes before rollout.\n\n## Kubernetes operating notes\n\n- Avoid treating SSV pods as stateless application replicas.\n- Keep secrets and key-share material out of broad namespace access.\n- Pin image tags for production; do not float on latest.\n- Track peer connectivity, duty participation, and beacon endpoint latency.\n\n## Known failure patterns\n\n- Beacon endpoint appears reachable but duty performance degrades under latency.\n- Operator container is healthy while validator effectiveness drops.\n- Release upgrade changes network assumptions and requires coordinated rollout.",
+      "excerpt": "Operator judgment SSV is not just another Ethereum sidecar. It changes validator operations by introducing DVT keyshare handling, operator coordination, and networklevel liveness dependencies. What matters operationally Operator identity and keyshare handling must be controlled a"
+    },
+    {
+      "id": "sui/rpc-migration.operator-note",
+      "path": "knowledge/sui/rpc-migration.operator-note.md",
+      "title": "Sui RPC Migration Operator Notes",
+      "chain": "sui",
+      "topics": [
+        "rpc",
+        "graphql",
+        "migration"
+      ],
+      "kind": "operator-note",
+      "review_status": "approved",
+      "last_reviewed": "2026-06-18",
+      "confidence": "medium",
+      "summary": "Sui interface guidance should present JSON-RPC status together with GraphQL migration context so developers do not design against an interface that is moving.",
+      "sources": [
+        {
+          "type": "internal",
+          "label": "FP Validated Sui interface review"
+        },
+        {
+          "type": "official",
+          "label": "Sui developer documentation",
+          "url": "https://docs.sui.io/"
+        }
+      ],
+      "body": "# Sui RPC Migration Operator Notes\n\n## Operator judgment\n\nWhen users ask for Sui RPC, show both current endpoint patterns and migration guidance. The useful answer is not only which endpoint works today, but what interface will remain safe for future integration.\n\n## Developer-facing guidance\n\n- Put GraphQL migration context next to JSON-RPC examples.\n- Mark deprecated or transitional interfaces clearly.\n- Tie examples to SDK versions and endpoint availability.\n- Show operational impact for gateway, rate limiting, and indexing.",
+      "excerpt": "Operator judgment When users ask for Sui RPC, show both current endpoint patterns and migration guidance. The useful answer is not only which endpoint works today, but what interface will remain safe for future integration. Developerfacing guidance Put GraphQL migration context n"
+    }
+  ],
+  "topics": [
+    {
+      "id": "dvt",
+      "count": 1,
+      "chains": [
+        "ethereum"
+      ]
+    },
+    {
+      "id": "graphql",
+      "count": 1,
+      "chains": [
+        "sui"
+      ]
+    },
+    {
+      "id": "kubernetes",
+      "count": 2,
+      "chains": [
+        "ethereum"
+      ]
+    },
+    {
+      "id": "migration",
+      "count": 1,
+      "chains": [
+        "sui"
+      ]
+    },
+    {
+      "id": "restore",
+      "count": 1,
+      "chains": [
+        "ethereum"
+      ]
+    },
+    {
+      "id": "rpc",
+      "count": 1,
+      "chains": [
+        "sui"
+      ]
+    },
+    {
+      "id": "snapshot",
+      "count": 1,
+      "chains": [
+        "ethereum"
+      ]
+    },
+    {
+      "id": "ssv",
+      "count": 1,
+      "chains": [
+        "ethereum"
+      ]
+    },
+    {
+      "id": "validator",
+      "count": 1,
+      "chains": [
+        "ethereum"
+      ]
+    }
+  ],
+  "admin": {
+    "reviewQueue": [],
+    "sourceCount": 6
+  }
+}

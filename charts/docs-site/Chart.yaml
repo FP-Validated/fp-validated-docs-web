@@ -1,0 +1,6 @@
+apiVersion: v2
+name: docs-site
+description: GitOps-driven FP Validated docs site with private GitHub sync and in-cluster Docusaurus build
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
