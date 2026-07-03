@@ -6,6 +6,8 @@ RUN apt-get update \
 
 WORKDIR /workspace
 
+COPY website /opt/fp-validated-docs-web/website
+COPY scripts /opt/fp-validated-docs-web/scripts
 COPY deploy/docs-site/sync-docs.sh /usr/local/bin/sync-docs
 RUN chmod +x /usr/local/bin/sync-docs
 

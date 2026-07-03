@@ -19,9 +19,11 @@ services:
       GIT_USERNAME: ${GIT_USERNAME:-x-access-token}
       GIT_TOKEN: ${GIT_TOKEN:?set GIT_TOKEN in the server environment}
       SYNC_INTERVAL_SECONDS: ${SYNC_INTERVAL_SECONDS:-300}
+      WEB_ROOT: /opt/fp-validated-docs-web
       WORK_DIR: /workspace
-      REPO_DIR: /workspace/repo
+      REPO_DIR: /workspace/docs-repo
       SITE_DIR: /var/www/site
+      BUILD_ROOT: /workspace/build-src
       NPM_CACHE_DIR: /workspace/.npm
       REVISION_FILE: /var/www/site/.built-revision
     volumes:
