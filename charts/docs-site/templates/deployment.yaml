@@ -159,7 +159,7 @@ spec:
                     npm --prefix "$build_root/website" ci --cache "$cache_dir"
                     FP_DOCS_PATH="$build_root/website/docs" npm --prefix "$build_root/website" run build
                     rm -rf "$site_dir"/*
-                    cp -a "$build_root/website/build/." "$site_dir/"
+                    cp -r "$build_root/website/build/." "$site_dir/"
                     printf '%s' "$revision" > "$built_revision_file"
                   fi
                 fi
