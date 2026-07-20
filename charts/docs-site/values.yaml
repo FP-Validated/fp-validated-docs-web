@@ -24,6 +24,8 @@ containerSecurityContext:
 repo:
   url: https://github.com/FP-Validated/fp-validated-docs.git
   branch: main
+  appUrl: https://github.com/FP-Validated/fp-validated-docs-web.git
+  appBranch: main
   username: x-access-token
   syncIntervalSeconds: 120
   runtimeSecretName: fp-validated-docs-git
@@ -49,6 +51,8 @@ externalSecrets:
 site:
   dataDir: /var/www/site
   repoDir: /workspace/repo
+  appDir: /workspace/app
+  buildRoot: /workspace/build-src
   workDir: /workspace
   npmCacheDir: /workspace/.npm
   revisionFile: /var/www/site/.built-revision

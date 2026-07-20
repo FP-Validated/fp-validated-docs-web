@@ -49,8 +49,9 @@ spec:
             httpGet:
               path: /
               port: http
-            initialDelaySeconds: 15
+            initialDelaySeconds: 60
             periodSeconds: 20
+            failureThreshold: 30
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -73,9 +74,11 @@ spec:
             - |
               set -eu
               repo_dir={{ .Values.site.repoDir | quote }}
+              app_dir={{ .Values.site.appDir | quote }}
               work_dir={{ .Values.site.workDir | quote }}
               revision_marker="$work_dir/.repo-revision"
               auth_url=$(printf '%s' "$REPO_URL" | sed "s#https://#https://$GIT_USERNAME:$GIT_TOKEN@#")
+              app_auth_url=$(printf '%s' "$APP_REPO_URL" | sed "s#https://#https://$GIT_USERNAME:$GIT_TOKEN@#")
               mkdir -p "$work_dir"
               while true; do
                 if [ ! -d "$repo_dir/.git" ]; then
@@ -86,7 +89,15 @@ spec:
                   git -C "$repo_dir" reset --hard "origin/$REPO_BRANCH"
                   git -C "$repo_dir" clean -fdx
                 fi
-                git -C "$repo_dir" rev-parse HEAD > "$revision_marker"
+                if [ ! -d "$app_dir/.git" ]; then
+                  rm -rf "$app_dir"
+                  git clone --depth 1 --branch "$APP_REPO_BRANCH" "$app_auth_url" "$app_dir"
+                else
+                  git -C "$app_dir" fetch --depth 1 origin "$APP_REPO_BRANCH"
+                  git -C "$app_dir" reset --hard "origin/$APP_REPO_BRANCH"
+                  git -C "$app_dir" clean -fdx
+                fi
+                printf '%s %s' "$(git -C "$repo_dir" rev-parse HEAD)" "$(git -C "$app_dir" rev-parse HEAD)" > "$revision_marker"
                 sleep {{ .Values.repo.syncIntervalSeconds }}
               done
           env:
@@ -94,6 +105,10 @@ spec:
               value: {{ .Values.repo.url | quote }}
             - name: REPO_BRANCH
               value: {{ .Values.repo.branch | quote }}
+            - name: APP_REPO_URL
+              value: {{ .Values.repo.appUrl | quote }}
+            - name: APP_REPO_BRANCH
+              value: {{ .Values.repo.appBranch | quote }}
             - name: GIT_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -117,24 +132,34 @@ spec:
             - |
               set -eu
               repo_dir={{ .Values.site.repoDir | quote }}
+              app_dir={{ .Values.site.appDir | quote }}
+              build_root={{ .Values.site.buildRoot | quote }}
               site_dir={{ .Values.site.dataDir | quote }}
               repo_revision_file={{ printf "%s/.repo-revision" .Values.site.workDir | quote }}
               built_revision_file={{ .Values.site.revisionFile | quote }}
               cache_dir={{ .Values.site.npmCacheDir | quote }}
               mkdir -p "$site_dir" "$cache_dir"
               while true; do
-                if [ -d "$repo_dir/.git" ] && [ -f "$repo_revision_file" ]; then
+                if [ -d "$repo_dir/.git" ] && [ -d "$app_dir/.git" ] && [ -f "$repo_revision_file" ]; then
                   revision=$(cat "$repo_revision_file")
                   built_revision=""
                   if [ -f "$built_revision_file" ]; then
                     built_revision=$(cat "$built_revision_file")
                   fi
                   if [ "$revision" != "$built_revision" ]; then
-                    npm --prefix "$repo_dir/scripts" ci --cache "$cache_dir"
-                    npm --prefix "$repo_dir/website" ci --cache "$cache_dir"
-                    npm --prefix "$repo_dir/website" run build
+                    rm -rf "$build_root"
+                    mkdir -p "$build_root"
+                    cp -a "$app_dir/." "$build_root/"
+                    rm -rf "$build_root/website/docs" "$build_root/chains" "$build_root/knowledge"
+                    mkdir -p "$build_root/website/docs" "$build_root/chains" "$build_root/knowledge"
+                    cp -a "$repo_dir/website/docs/." "$build_root/website/docs/"
+                    cp -a "$repo_dir/chains/." "$build_root/chains/"
+                    cp -a "$repo_dir/knowledge/." "$build_root/knowledge/"
+                    npm --prefix "$build_root/scripts" ci --cache "$cache_dir"
+                    npm --prefix "$build_root/website" ci --cache "$cache_dir"
+                    FP_DOCS_PATH="$build_root/website/docs" npm --prefix "$build_root/website" run build
                     rm -rf "$site_dir"/*
-                    cp -a "$repo_dir/website/build/." "$site_dir/"
+                    cp -a "$build_root/website/build/." "$site_dir/"
                     printf '%s' "$revision" > "$built_revision_file"
                   fi
                 fi
