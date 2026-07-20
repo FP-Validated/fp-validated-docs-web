@@ -3,42 +3,53 @@ kind: Application
 metadata:
   name: fp-validated-docs
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "40"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: fleet
   source:
-    repoURL: https://github.com/FP-Validated/fp-validated-docs.git
+    repoURL: https://github.com/FP-Validated/fp-validated-docs-web.git
     targetRevision: main
     path: charts/docs-site
     helm:
       releaseName: fp-validated-docs
       valuesObject:
+        persistence:
+          enabled: true
+          storageClassName: local-path
+        nodeSelector:
+          kubernetes.io/hostname: ovh-node-9
+        tolerations:
+          - key: node-role.kubernetes.io/control-plane
+            operator: Exists
+            effect: NoSchedule
+          - key: node-role.kubernetes.io/master
+            operator: Exists
+            effect: NoSchedule
         ingress:
           enabled: true
           className: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-http01
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+            nginx.ingress.kubernetes.io/ssl-redirect: "true"
           hosts:
-            - host: docs.4pillars.info
+            - host: docs.validated.4pillars.info
               paths:
                 - path: /
                   pathType: Prefix
+          tls:
+            - hosts:
+                - docs.validated.4pillars.info
+              secretName: fp-validated-docs-tls
         externalSecrets:
-          enabled: true
-          secretStoreRef:
-            kind: ClusterSecretStore
-            name: CHANGE_ME_SECRET_STORE
-          targetName: fp-validated-docs-git
-          data:
-            - secretKey: username
-              remoteKey: github/fp-validated-docs
-              property: username
-            - secretKey: token
-              remoteKey: github/fp-validated-docs
-              property: token
+          enabled: false
   destination:
-    server: https://kubernetes.default.svc
+    server: https://10.50.8.68:16443
     namespace: docs
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true

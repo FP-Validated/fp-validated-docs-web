@@ -116,3 +116,11 @@ tolerations: []
 affinity: {}
 
 terminationGracePeriodSeconds: 30
+
+persistence:
+  enabled: true
+  storageClassName: local-path
+  workdir:
+    size: 5Gi
+  siteData:
+    size: 2Gi

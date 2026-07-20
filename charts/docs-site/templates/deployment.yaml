@@ -145,9 +145,19 @@ spec:
               mountPath: {{ .Values.site.dataDir }}
       volumes:
         - name: repo-workdir
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "docs-site.fullname" . }}-repo-workdir
+          {{- else }}
           emptyDir: {}
+          {{- end }}
         - name: site-data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "docs-site.fullname" . }}-site-data
+          {{- else }}
           emptyDir: {}
+          {{- end }}
         - name: nginx-config
           configMap:
             name: {{ include "docs-site.fullname" . }}-nginx
