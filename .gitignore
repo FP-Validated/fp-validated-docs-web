@@ -1,0 +1,6 @@
+# Local-dev symlinks into a sibling checkout of FP-Validated/fp-validated-docs.
+# These point outside this repo and must never be committed — ArgoCD's
+# repo-server rejects out-of-bounds symlinks and fails to render any manifest.
+/chains
+/knowledge
+/website/docs
