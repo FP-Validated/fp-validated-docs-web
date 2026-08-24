@@ -2,7 +2,7 @@
 set -euo pipefail
 
 HOSTS_FILE="${HOSTS_FILE:-/etc/hosts}"
-DOMAIN="${DOMAIN:-docs.4pillars.info}"
+DOMAIN="${DOMAIN:-docs.validated.4pillars.io}"
 TARGET="${TARGET:-127.0.0.1}"
 LINE="${TARGET} ${DOMAIN}"
 PATTERN="^[[:space:]]*${TARGET//./\\.}[[:space:]]+${DOMAIN//./\\.}([[:space:]]|$)"

@@ -36,13 +36,13 @@ spec:
             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
             nginx.ingress.kubernetes.io/ssl-redirect: "true"
           hosts:
-            - host: docs.validated.4pillars.info
+            - host: docs.validated.4pillars.io
               paths:
                 - path: /
                   pathType: Prefix
           tls:
             - hosts:
-                - docs.validated.4pillars.info
+                - docs.validated.4pillars.io
               secretName: fp-validated-docs-tls
         externalSecrets:
           enabled: false

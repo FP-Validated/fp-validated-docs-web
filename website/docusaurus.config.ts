@@ -33,7 +33,7 @@ const config: Config = {
     },
   },
 
-  url: 'https://docs.4pillars.info',
+  url: 'https://docs.validated.4pillars.io',
   baseUrl: '/',
 
   organizationName: 'fourpillars',
