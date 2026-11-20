@@ -28,6 +28,7 @@ repo:
   appBranch: main
   username: x-access-token
   syncIntervalSeconds: 120
+  # Optional. If this secret (keys below) is absent, or its token is empty, the repositories are cloned anonymously.
   runtimeSecretName: fp-validated-docs-git
   runtimeSecretKeys:
     username: username

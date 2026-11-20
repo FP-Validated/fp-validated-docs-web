@@ -77,8 +77,14 @@ spec:
               app_dir={{ .Values.site.appDir | quote }}
               work_dir={{ .Values.site.workDir | quote }}
               revision_marker="$work_dir/.repo-revision"
-              auth_url=$(printf '%s' "$REPO_URL" | sed "s#https://#https://$GIT_USERNAME:$GIT_TOKEN@#")
-              app_auth_url=$(printf '%s' "$APP_REPO_URL" | sed "s#https://#https://$GIT_USERNAME:$GIT_TOKEN@#")
+              # Both repositories are public, so the credential secret is optional: without a token the clone is anonymous.
+              auth_url="$REPO_URL"
+              app_auth_url="$APP_REPO_URL"
+              if [ -n "${GIT_TOKEN:-}" ]; then
+                git_username="${GIT_USERNAME:-x-access-token}"
+                auth_url=$(printf '%s' "$REPO_URL" | sed "s#https://#https://$git_username:$GIT_TOKEN@#")
+                app_auth_url=$(printf '%s' "$APP_REPO_URL" | sed "s#https://#https://$git_username:$GIT_TOKEN@#")
+              fi
               mkdir -p "$work_dir"
               while true; do
                 if [ ! -d "$repo_dir/.git" ]; then
@@ -114,11 +120,13 @@ spec:
                 secretKeyRef:
                   name: {{ include "docs-site.runtimeSecretName" . }}
                   key: {{ .Values.repo.runtimeSecretKeys.username | quote }}
+                  optional: true
             - name: GIT_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: {{ include "docs-site.runtimeSecretName" . }}
                   key: {{ .Values.repo.runtimeSecretKeys.token | quote }}
+                  optional: true
           resources:
             {{- toYaml .Values.sync.resources | nindent 12 }}
           volumeMounts:
