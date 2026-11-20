@@ -28,6 +28,10 @@ const config: Config = {
 
   markdown: {
     mermaid: true,
+    // `future.v4` turns MDX v1 compatibility off, but the docs use the `:::type Title` admonition form.
+    mdx1Compat: {
+      admonitions: true,
+    },
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
