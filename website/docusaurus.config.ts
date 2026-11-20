@@ -92,6 +92,7 @@ const config: Config = {
           items: [
             {label: 'Home', to: '/'},
             {label: 'FP Validated Infrastructure', to: '/fp-validated-infra/overview'},
+            {label: 'Staking', to: '/staking'},
             {label: 'Chains', to: '/chains'},
             {label: 'Developer', to: '/developer/api-design-principles'},
             {label: 'Node Operations', to: '/operations/common-runbooks'},
