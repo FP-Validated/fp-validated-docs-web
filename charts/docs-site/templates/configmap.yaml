@@ -11,6 +11,9 @@ data:
       server_name _;
       root {{ .Values.site.dataDir }};
       index index.html;
+      # nginx listens on an inner port behind the Ingress. Without this, the redirect that adds a trailing slash to a
+      # directory (/staking -> /staking/) is absolute and carries that port, which is not reachable from outside.
+      absolute_redirect off;
 
       location / {
         try_files $uri $uri/ /index.html;
