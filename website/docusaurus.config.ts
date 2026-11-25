@@ -69,7 +69,26 @@ const config: Config = {
     ],
   ],
 
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      // Local full-text search: the index is built into the static site at build time,
+      // so no external search service, account or API key is needed.
+      '@easyops-cn/docusaurus-search-local',
+      {
+        hashed: true,
+        indexDocs: true,
+        indexBlog: false,
+        indexPages: false,
+        docsRouteBasePath: '/',
+        docsDir: docsContentPath,
+        language: ['en'],
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+        searchBarShortcutHint: true,
+      },
+    ],
+  ],
 
   themeConfig: {
     image: 'img/social-card.png',
@@ -86,7 +105,7 @@ const config: Config = {
         srcDark: 'img/logo-dark.svg',
         width: 150,
       },
-      items: [],
+      items: [{type: 'search', position: 'right'}],
     },
     footer: {
       style: 'dark',
