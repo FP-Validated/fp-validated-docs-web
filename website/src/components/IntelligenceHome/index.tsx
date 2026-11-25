@@ -23,6 +23,11 @@ const supportedNetworks: SupportedNetwork[] = [
   {name: 'Stable', icon: '/img/networks/logo-stable.png', support: ['Validator']},
   {name: 'Sei', icon: '/img/networks/logo-sei.png', support: ['Validator']},
   {name: 'Canton', icon: '/img/networks/logo-canton.png', support: ['Validator']},
+  {name: 'Aptos', icon: '/img/networks/logo-aptos.png', support: ['Validator']},
+  {name: 'Injective', icon: '/img/networks/logo-injective.png', support: ['Validator']},
+  {name: 'Monad', icon: '/img/networks/logo-monad.png', support: ['Validator']},
+  {name: 'Stacks', icon: '/img/networks/logo-stacks.png', support: ['Signer']},
+  {name: 'Zero', icon: '/img/networks/logo-layerzero.jpg', support: ['Validator']},
   {name: 'LayerZero', icon: '/img/networks/logo-layerzero.jpg', support: ['DVN']},
   {name: 'BSC', icon: '/img/networks/logo-bsc.png', support: ['RPC']},
   {name: 'Hyperliquid', icon: '/img/networks/logo-hyperliquid.jpg', support: ['RPC']},
@@ -36,6 +41,7 @@ const supportedNetworks: SupportedNetwork[] = [
 
 const quickLinks = [
   {label: 'Infrastructure', href: '/fp-validated-infra/overview'},
+  {label: 'Staking', href: '/staking'},
   {label: 'Chains', href: '/chains'},
   {label: 'Node Operations', href: '/operations/common-runbooks'},
   {label: 'Developer', href: '/developer/api-design-principles'},
@@ -58,20 +64,20 @@ export default function IntelligenceHome(): React.ReactElement {
   const summaryItems = useMemo(() => [
     {
       label: 'Networks operated',
-      value: '24',
-      detail: 'Litepaper footprint across validator and RPC surfaces.',
+      value: String(supportedNetworks.length),
+      detail: 'Networks where we run validators, signers, DVNs or RPC nodes.',
     },
     {
       label: 'Cloud providers',
       value: '5',
-      detail: 'Independent providers across one institution-grade operating model.',
+      detail: 'Cloud providers our nodes run on.',
     },
     {
       label: 'Reviewed notes',
       value: index ? String(index.notes.length) : '—',
       detail: index
-        ? `Public notes generated ${new Date(index.generatedAt).toLocaleDateString()}.`
-        : 'Public notes update when the reviewed index refreshes.',
+        ? `Public notes, last generated ${index.generatedAt.slice(0, 10)}.`
+        : 'Public notes, refreshed with each site build.',
     },
   ], [index]);
 
@@ -80,11 +86,11 @@ export default function IntelligenceHome(): React.ReactElement {
       <div className="intelligence-home__frame">
         <div className="intelligence-home__hero">
           <div className="intelligence-home__hero-copy">
-            <p className="intelligence-home__eyebrow">FP Validated · Validator &amp; RPC Infrastructure</p>
-            <h1 className="intelligence-home__headline">Institution-grade validator and RPC documentation.</h1>
+            <p className="intelligence-home__eyebrow">FP Validated Docs</p>
+            <h1 className="intelligence-home__headline">How FP Validated runs validators and RPC nodes.</h1>
             <p className="intelligence-home__lead">
-              FP Validated Docs covers the architecture, chain guides, node operations, and
-              developer interfaces behind our validator and RPC infrastructure.
+              Architecture, chain guides, staking guides, node operations and developer
+              interfaces for our validator and RPC infrastructure.
             </p>
             <div className="intelligence-home__actions" aria-label="Primary documentation links">
               {quickLinks.map((item) => (
