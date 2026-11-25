@@ -503,3 +503,9 @@ a {
     transform: none !important;
   }
 }
+
+/* Local search (@easyops-cn/docusaurus-search-local): the primary color is near-white,
+   so the selected result needs dark text to stay readable. */
+:root {
+  --search-local-hit-active-color: #0b0b0c;
+}
