@@ -15,6 +15,7 @@ const sidebars: SidebarsConfig = {
         'fp-validated-infra/responsiveness-and-slashing-policy',
         'fp-validated-infra/gitops-topology',
         'fp-validated-infra/access-and-secrets',
+        'fp-validated-infra/image-supply-chain',
         'fp-validated-infra/incident-response',
         'fp-validated-infra/bootstrap-and-recovery',
       ],
