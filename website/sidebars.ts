@@ -10,6 +10,7 @@ const sidebars: SidebarsConfig = {
       link: {type: 'doc', id: 'fp-validated-infra/overview'},
       items: [
         'fp-validated-infra/overview',
+        'overview/platform',
         'fp-validated-infra/fp-validated-guard',
         'fp-validated-infra/monitoring-architecture',
         'fp-validated-infra/responsiveness-and-slashing-policy',
