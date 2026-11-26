@@ -10,11 +10,13 @@ const sidebars: SidebarsConfig = {
       link: {type: 'doc', id: 'fp-validated-infra/overview'},
       items: [
         'fp-validated-infra/overview',
+        'overview/platform',
         'fp-validated-infra/fp-validated-guard',
         'fp-validated-infra/monitoring-architecture',
         'fp-validated-infra/responsiveness-and-slashing-policy',
         'fp-validated-infra/gitops-topology',
         'fp-validated-infra/access-and-secrets',
+        'fp-validated-infra/image-supply-chain',
         'fp-validated-infra/incident-response',
         'fp-validated-infra/bootstrap-and-recovery',
       ],
